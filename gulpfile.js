@@ -3,11 +3,11 @@ const browserSync = require('browser-sync')
 const sass = require('gulp-sass')
 const sourcemaps = require('gulp-sourcemaps')
 const babel = require('gulp-babel')
-const mustache = require('gulp-mustache')
+const pug = require('gulp-pug')
 const rename = require('gulp-rename')
 
 // 监视文件改动并重新载入
-gulp.task('serve', function () {
+gulp.task('serve', ['babel', 'sass', 'template', 'assets'], function () {
   browserSync({
     server: {
       baseDir: 'dist',
@@ -15,9 +15,9 @@ gulp.task('serve', function () {
     open: false
   });
 
-  gulp.watch('./src/**/*.scss', ['sass'])
-  gulp.watch('./src/**/*.js', ['babel'])
-  gulp.watch('./src/**/*.html', ['template'])
+  gulp.watch('./src/**/index.scss', ['sass'])
+  gulp.watch('./src/**/index.js', ['babel'])
+  gulp.watch('./src/**/index.pug', ['template'])
   gulp.watch('./src/assets/**/*', ['assets'])
 
   gulp.watch('./dist/**/*', browserSync.reload)
@@ -25,7 +25,7 @@ gulp.task('serve', function () {
 });
 // 转化 sass
 gulp.task('sass', function () {
-  return gulp.src('./src/**/*.scss')
+  return gulp.src('./src/**/index.scss')
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(sourcemaps.write('./'))
@@ -34,7 +34,7 @@ gulp.task('sass', function () {
 
 // 转化 js
 gulp.task('babel', function (cb) {
-  return gulp.src('./src/**/*.js')
+  return gulp.src('./src/**/index.js')
     .pipe(sourcemaps.init())
     .pipe(babel({
         presets: ['env'],
@@ -48,10 +48,10 @@ gulp.task('babel', function (cb) {
 
 // 转化 html
 gulp.task('template', function () {
-  return gulp.src('./src/**/*.html')
-    .pipe(mustache(require('./data.js')))
-    .pipe(rename(path => {
-      path.extname = '.html'
+  console.log(111)
+  return gulp.src('./src/**/index.pug')
+    .pipe(pug({
+      locals: require('./data.js')
     }))
     .pipe(gulp.dest('./dist/'))
 })

@@ -19,7 +19,7 @@
     "browser-sync": "^2.21.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
-    "gulp-mustache": "^3.0.0",
+    "gulp-pug": "^3.3.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.2",

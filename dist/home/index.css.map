@@ -1,1 +1,0 @@
-{"version":3,"file":"index.css","sources":["home/index.scss"],"sourcesContent":["$color: #f23;\n\nbody {\n  color: $color;\n  background: url(../assets/111.png);\n}"],"names":[],"mappings":"AAEA,AAAA,IAAI,CAAC;EACH,KAAK,EAHC,IAAI;EAIV,UAAU,EAAE,sBAAsB,GACnC"}
